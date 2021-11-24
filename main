@@ -1,0 +1,21 @@
+#include "mbed.h"
+
+//Mise en oeuvre pratique de la liaison RS232
+//Exercice fonction PUTC
+
+//Serial port pin assignment and setup
+Serial device(PA_2,PA_3);  // tx, rx //liaison 2, reliée au pc
+Timer timer;
+
+int main()
+{
+    timer.reset();
+    device.baud(9600);
+    timer.start();
+    for(int i = 97 ; i <123 ; i++) {
+        device.putc(i);//97 0x15
+    }
+    timer.stop();
+    int TempsEmission = timer.read_ms();
+    device.printf(" Temps emission (ms) : %d", TempsEmission);
+}
